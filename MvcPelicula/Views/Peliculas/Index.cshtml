@@ -1,0 +1,93 @@
+﻿@model IEnumerable<MvcPelicula.Models.Pelicula>
+@{ 
+    List<MvcPelicula.Models.Director> directors = new List<MvcPelicula.Models.Director>();
+
+    directors = ViewBag.Directores as List<MvcPelicula.Models.Director>;
+
+}
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<br />
+    @Html.ActionLink("Crear nuevo", "Create")
+    @using (Html.BeginForm("Index", "Peliculas", FormMethod.Get))
+    {
+<div class="row text-justify">
+    <p>
+        Genero: @Html.DropDownList("generoPelicula", "all")
+    </p>
+    <p>
+        Titulo: @Html.TextBox("BuscarString") <br />
+    </p>
+    <p>
+        Precio: @Html.TextBox("precio") <br />
+    </p>
+    <p>
+        Director: @Html.DropDownList("directorPelicula", "all")
+    </p>
+    <input type="submit" value="Filter" />
+</div>
+}
+   
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaLanzamiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Calificacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Productor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DirectorId)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaLanzamiento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Calificacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Productor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => (item.Director.Nombre))
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+        }
+
+    </table>
